@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DIGM71-100 — Week 5 Lab Worksheet — Typography, Composition & Presentation Prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --header:#949494;
+  --ink:#1a1a2e; --mid:#55586b; --muted:#8089a0;
+  --surface:#f6f6f8; --white:#fff; --border:#e3e4ea;
+  --accent:#1a1a2e; --accent-soft:#eceef4;
+  --green:#1a9e5c; --green-bg:rgba(26,158,92,.08);
+  --red:#d8443f; --red-bg:rgba(216,68,63,.08);
+  --amber:#e8a32a; --amber-bg:rgba(232,163,42,.1);
+  --radius:12px; --radius-sm:8px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--surface);color:var(--ink);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.brand{font-family:'Space Grotesk','Inter',sans-serif}
+
+/* progress bar */
+#progress{position:sticky;top:0;z-index:50;background:var(--white);border-bottom:1px solid var(--border);padding:10px 20px;display:flex;align-items:center;gap:16px}
+#progress .lbl{font-size:13px;color:var(--muted);white-space:nowrap}
+#progress .track{flex:1;height:6px;background:var(--accent-soft);border-radius:99px;overflow:hidden}
+#progress .fill{height:100%;width:0;background:var(--accent);border-radius:99px;transition:width .35s ease}
+#progress .pct{font-size:13px;font-weight:600;color:var(--accent);white-space:nowrap}
+.saved{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s}.saved.show{opacity:1}
+
+/* hero */
+.hero{background-color:var(--header);background-image:url('Week5.jpg');background-repeat:no-repeat;background-position:right center;background-size:contain;color:var(--ink)}
+.hero-inner{max-width:1040px;margin:0 auto;padding:48px 24px;min-height:340px;display:flex;align-items:center}
+.hero-text{max-width:56%}
+.hero .tag{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;opacity:.85}
+.hero h1{font-size:40px;line-height:1.08;margin:10px 0 14px;font-weight:700}
+.hero p{font-size:16px;max-width:48ch;opacity:.95}
+.hero .due{display:inline-block;margin-top:14px;background:rgba(0,0,0,.14);padding:6px 12px;border-radius:99px;font-size:13px;font-weight:600}
+.hero .partic{margin-top:14px;font-size:13.5px;opacity:.9;max-width:52ch}
+@media(max-width:760px){.hero{background-image:none}.hero-text{max-width:100%}.hero h1{font-size:30px}}
+
+/* layout */
+.wrap{max-width:1040px;margin:0 auto;padding:28px 24px 80px}
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:24px 26px;margin-bottom:20px}
+.card>h2{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.card .ctitle{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin-bottom:6px}
+.card .cdesc{color:var(--mid);font-size:15px;margin-bottom:18px}
+
+label.fld{display:block;font-weight:600;font-size:15px;margin:16px 0 6px}
+label.fld .req{color:var(--red)}
+.hint{font-weight:400;color:var(--muted);font-size:13.5px}
+input[type=text],input[type=email],input[type=date],select,textarea{width:100%;font:inherit;font-size:15px;color:var(--ink);background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px}
+textarea{min-height:66px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
+
+/* choice rows (radio / checkbox) */
+.opt{display:flex;align-items:center;gap:12px;padding:11px 14px;border:1.5px solid var(--border);border-radius:var(--radius-sm);margin-top:8px;cursor:pointer;background:var(--white);transition:border-color .15s,background .15s}
+.opt:hover{border-color:#c9cbd6}
+.opt input{width:17px;height:17px;accent-color:var(--accent);flex-shrink:0;cursor:pointer}
+.opt span{font-size:15px}
+.opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+
+.q{padding:16px 0;border-top:1px dashed var(--border)}
+.q:first-of-type{border-top:none}
+.q .qn{font-weight:700;font-size:16px;margin-bottom:10px}
+
+/* matching */
+.match-row{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:center;margin-top:10px}
+.match-row .prompt{font-weight:600;font-size:15px}
+@media(max-width:620px){.match-row{grid-template-columns:1fr}}
+
+/* AI card */
+.ai-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:4px 0 18px}
+@media(max-width:620px){.ai-grid{grid-template-columns:1fr}}
+.ai-col{border-radius:var(--radius-sm);padding:16px 18px}
+.ai-yes{background:var(--green-bg);border:1px solid rgba(26,158,92,.25)}
+.ai-no{background:var(--red-bg);border:1px solid rgba(216,68,63,.25)}
+.ai-col h3{font-size:15px;margin-bottom:10px}.ai-yes h3{color:var(--green)}.ai-no h3{color:var(--red)}
+.ai-col ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.ai-col li{font-size:14px;padding-left:16px;position:relative}
+.ai-col li::before{content:'–';position:absolute;left:0;color:var(--muted)}
+.ack{background:var(--amber-bg);border:1.5px solid rgba(232,163,42,.35);border-radius:var(--radius-sm);padding:14px 16px;display:flex;gap:12px;align-items:flex-start;cursor:pointer}
+.ack input{width:18px;height:18px;margin-top:2px;accent-color:var(--amber);flex-shrink:0}
+.ack span{font-size:14.5px;font-weight:500}
+
+/* checklist */
+.check{display:flex;align-items:flex-start;gap:11px;padding:9px 0}
+.check input{width:18px;height:18px;margin-top:2px;accent-color:var(--accent);flex-shrink:0;cursor:pointer}
+.check span{font-size:15px}
+
+/* submit */
+.submit-card{background:var(--accent);color:#fff;text-align:center;border:none}
+.submit-card .ctitle{color:#fff}
+.submit-card p{color:rgba(255,255,255,.75);font-size:15px;max-width:52ch;margin:0 auto 18px}
+#submitBtn{font:inherit;font-weight:600;font-size:16px;background:#fff;color:var(--accent);border:none;border-radius:99px;padding:14px 34px;cursor:pointer}
+#submitBtn:disabled{opacity:.5;cursor:not-allowed}
+.sent-note{font-size:13px;color:rgba(255,255,255,.4);margin-top:14px}
+.err{color:var(--red);font-size:13.5px;margin-top:8px;display:none}
+
+#success{display:none;background:var(--green-bg);border:1px solid rgba(26,158,92,.3);border-radius:var(--radius);padding:28px;text-align:center;margin-bottom:20px}
+#success h3{color:var(--green);font-size:22px;margin-bottom:6px}
+</style>
+</head>
+<body>
+
+<div id="progress">
+  <span class="lbl">Worksheet progress</span>
+  <div class="track"><div class="fill" id="fill"></div></div>
+  <span class="pct" id="pct">0%</span>
+  <span class="saved" id="saved">Saved</span>
+</div>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="tag">DIGM71-100 · Week 5</div>
+      <h1>Typography, Composition &amp; Presentation Prep</h1>
+      <p>Work through each section during the lab. Your progress saves automatically. Submit before the end of the session.</p>
+      <div class="due">Due: end of today's lab session</div>
+      <div class="partic">Completing and submitting this worksheet counts towards your Active Participation (A4). It reflects your engagement and effort during the lab, not attendance alone. This week's check-in makes sure you're ready to present in Week 6.</div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div id="success">
+    <h3>Submitted successfully.</h3>
+    <p>Your Week 5 worksheet has been sent to your lecturer. Keep this window open as confirmation.</p>
+    <p id="successTime" style="color:var(--mid);font-size:14px"></p>
+  </div>
+
+  <form id="ws" autocomplete="off">
+
+  <!-- DETAILS -->
+  <div class="card">
+    <h2>Your details</h2>
+    <div class="cdesc">These are attached to your submission.</div>
+    <label class="fld">Full name <span class="req">*</span></label>
+    <input type="text" name="student_name" data-req>
+    <label class="fld">Tutorial <span class="req">*</span></label>
+    <select name="tutorial" data-req>
+      <option value="">Select your tutorial</option>
+      <option>10:00 am</option><option>2:00 pm</option><option>4:00 pm</option>
+    </select>
+    <label class="fld">Student email <span class="req">*</span></label>
+    <input type="email" name="student_email" data-req>
+    <label class="fld">Date</label>
+    <input type="date" name="date">
+  </div>
+
+  <!-- AI POLICY -->
+  <div class="card">
+    <h2>AI use policy</h2>
+    <div class="ctitle">Read before you begin</div>
+    <div class="cdesc">You must acknowledge this before submitting your worksheet.</div>
+    <div class="ai-grid">
+      <div class="ai-col ai-yes"><h3>✓ Permitted</h3><ul>
+        <li>Research, moodboards and ideation, with documentation of what you asked and how you used it</li>
+        <li>Feedback on type or colour directions you have already made</li>
+        <li>Asking AI to explain a design principle</li>
+        <li>Helping word your reflection notes after you've drafted them yourself</li>
+      </ul></div>
+      <div class="ai-col ai-no"><h3>✕ Not permitted</h3><ul>
+        <li>AI-generated logos or vectors submitted as your own final assets</li>
+        <li>AI-generated final brand assets presented as your own</li>
+        <li>Using AI to complete this worksheet's reflection fields</li>
+        <li>Presenting AI-generated work as evidence of your own process</li>
+      </ul></div>
+    </div>
+    <label class="ack"><input type="checkbox" name="ai_ack" data-req><span>I have read the AI use policy above. My submission adheres to these guidelines and all work presented is my own unless otherwise declared.</span></label>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="card">
+    <h2>Section B</h2>
+    <div class="ctitle">Quick knowledge check</div>
+    <div class="cdesc">One point each. Pick the best answer.</div>
+
+    <div class="q"><div class="qn">1. Typography influences both readability and emotion in design.</div>
+      <label class="opt"><input type="radio" name="q1" value="True"><span>True</span></label>
+      <label class="opt"><input type="radio" name="q1" value="False"><span>False</span></label></div>
+
+    <div class="q"><div class="qn">2. All logos need to include a symbol or image to be effective.</div>
+      <label class="opt"><input type="radio" name="q2" value="True"><span>True</span></label>
+      <label class="opt"><input type="radio" name="q2" value="False"><span>False</span></label></div>
+
+    <div class="q"><div class="qn">3. What is leading in typography?</div>
+      <label class="opt"><input type="radio" name="q3" value="A"><span>A. The vertical spacing between lines of text.</span></label>
+      <label class="opt"><input type="radio" name="q3" value="B"><span>B. The space between letters in a word.</span></label>
+      <label class="opt"><input type="radio" name="q3" value="C"><span>C. The alignment of text within a document.</span></label>
+      <label class="opt"><input type="radio" name="q3" value="D"><span>D. The design of the typeface itself.</span></label></div>
+
+    <div class="q"><div class="qn">4. What should be avoided when selecting typefaces for a design?</div>
+      <label class="opt"><input type="radio" name="q4" value="A"><span>A. Using two typefaces of the same classification.</span></label>
+      <label class="opt"><input type="radio" name="q4" value="B"><span>B. Pairing complementary font styles.</span></label>
+      <label class="opt"><input type="radio" name="q4" value="C"><span>C. Using bold for headlines and light for body text.</span></label>
+      <label class="opt"><input type="radio" name="q4" value="D"><span>D. Choosing a mix of serif and sans serif.</span></label></div>
+
+    <div class="q"><div class="qn">5. A good logo should be complex to ensure it stands out.</div>
+      <label class="opt"><input type="radio" name="q5" value="True"><span>True</span></label>
+      <label class="opt"><input type="radio" name="q5" value="False"><span>False</span></label></div>
+
+    <div class="q"><div class="qn">6. What is the main advantage of using a logo grid in design?</div>
+      <label class="opt"><input type="radio" name="q6" value="A"><span>A. It makes logos more colourful.</span></label>
+      <label class="opt"><input type="radio" name="q6" value="B"><span>B. It allows for more complex designs.</span></label>
+      <label class="opt"><input type="radio" name="q6" value="C"><span>C. It eliminates the need for typography.</span></label>
+      <label class="opt"><input type="radio" name="q6" value="D"><span>D. It creates balance and consistency in the design.</span></label></div>
+
+    <div class="q"><div class="qn">7. Match each logo style to its description.</div>
+      <div class="match-row"><div class="prompt">Wordmark</div><select name="q7_wordmark"><option value="">Choose…</option><option>Logos based primarily on the brand's name</option><option>Initials used to represent the brand</option><option>A mix of both text and symbol</option><option>A logo that encases the brand name in a shape</option><option>A character designed to represent a brand</option></select></div>
+      <div class="match-row"><div class="prompt">Lettermark</div><select name="q7_lettermark"><option value="">Choose…</option><option>Logos based primarily on the brand's name</option><option>Initials used to represent the brand</option><option>A mix of both text and symbol</option><option>A logo that encases the brand name in a shape</option><option>A character designed to represent a brand</option></select></div>
+      <div class="match-row"><div class="prompt">Combination mark</div><select name="q7_combination"><option value="">Choose…</option><option>Logos based primarily on the brand's name</option><option>Initials used to represent the brand</option><option>A mix of both text and symbol</option><option>A logo that encases the brand name in a shape</option><option>A character designed to represent a brand</option></select></div>
+      <div class="match-row"><div class="prompt">Emblem</div><select name="q7_emblem"><option value="">Choose…</option><option>Logos based primarily on the brand's name</option><option>Initials used to represent the brand</option><option>A mix of both text and symbol</option><option>A logo that encases the brand name in a shape</option><option>A character designed to represent a brand</option></select></div></div>
+
+    <div class="q"><div class="qn">8. Match each font classification to its description.</div>
+      <div class="match-row"><div class="prompt">Serif</div><select name="q8_serif"><option value="">Choose…</option><option>Fonts with decorative edges on letters</option><option>Fonts without decorative edges, modern look</option><option>Fonts that mimic handwriting</option><option>Fonts used for attention in advertising</option><option>Fonts where each character occupies the same width</option></select></div>
+      <div class="match-row"><div class="prompt">Sans serif</div><select name="q8_sans"><option value="">Choose…</option><option>Fonts with decorative edges on letters</option><option>Fonts without decorative edges, modern look</option><option>Fonts that mimic handwriting</option><option>Fonts used for attention in advertising</option><option>Fonts where each character occupies the same width</option></select></div>
+      <div class="match-row"><div class="prompt">Script</div><select name="q8_script"><option value="">Choose…</option><option>Fonts with decorative edges on letters</option><option>Fonts without decorative edges, modern look</option><option>Fonts that mimic handwriting</option><option>Fonts used for attention in advertising</option><option>Fonts where each character occupies the same width</option></select></div>
+      <div class="match-row"><div class="prompt">Display</div><select name="q8_display"><option value="">Choose…</option><option>Fonts with decorative edges on letters</option><option>Fonts without decorative edges, modern look</option><option>Fonts that mimic handwriting</option><option>Fonts used for attention in advertising</option><option>Fonts where each character occupies the same width</option></select></div></div>
+
+    <div class="q"><div class="qn">9. Match each shape to its psychological symbolism.</div>
+      <div class="match-row"><div class="prompt">Circles</div><select name="q9_circles"><option value="">Choose…</option><option>Unity and harmony</option><option>Direction and balance</option><option>Stability and reliability</option><option>Strength and growth</option></select></div>
+      <div class="match-row"><div class="prompt">Triangles</div><select name="q9_triangles"><option value="">Choose…</option><option>Unity and harmony</option><option>Direction and balance</option><option>Stability and reliability</option><option>Strength and growth</option></select></div>
+      <div class="match-row"><div class="prompt">Squares</div><select name="q9_squares"><option value="">Choose…</option><option>Unity and harmony</option><option>Direction and balance</option><option>Stability and reliability</option><option>Strength and growth</option></select></div>
+      <div class="match-row"><div class="prompt">Vertical lines</div><select name="q9_vertical"><option value="">Choose…</option><option>Unity and harmony</option><option>Direction and balance</option><option>Stability and reliability</option><option>Strength and growth</option></select></div></div>
+  </div>
+
+  <!-- CONCEPTS -->
+  <div class="card">
+    <h2>Section C</h2>
+    <div class="ctitle">This week's concepts</div>
+    <div class="cdesc">Short answers — a sentence or two is plenty.</div>
+    <label class="fld">The primary and secondary typefaces you're considering for your brand, and why.</label>
+    <textarea name="type_choice"></textarea>
+    <label class="fld">One typographic choice you'll apply (leading, kerning, tracking or hierarchy) and why. <span class="hint">Tie it to the feel of your brand.</span></label>
+    <textarea name="type_apply"></textarea>
+  </div>
+
+  <!-- A1 PROGRESS -->
+  <div class="card">
+    <h2>Section D</h2>
+    <div class="ctitle">A1 progress check-in</div>
+    <div class="cdesc">Where you're up to on A1, due Week 6.</div>
+    <label class="check"><input type="checkbox" name="a1_concepts"><span>I have developed three logo concepts in Illustrator</span></label>
+    <label class="check"><input type="checkbox" name="a1_grid"><span>My logo is built on a grid (outlines ready for .eps)</span></label>
+    <label class="check"><input type="checkbox" name="a1_recommend"><span>I've chosen the concept I'd recommend</span></label>
+    <label class="check"><input type="checkbox" name="a1_doc"><span>My InDesign document is progressing (analysis + insights done)</span></label>
+    <label class="check"><input type="checkbox" name="a1_ontrack"><span>I'm on track to submit A1 in Week 6</span></label>
+  </div>
+
+  <!-- PRESENTATION READINESS -->
+  <div class="card">
+    <h2>Section E</h2>
+    <div class="ctitle">Presentation readiness</div>
+    <div class="cdesc">Week 6 is your Presentation 1. Let's make sure you're ready.</div>
+    <label class="check"><input type="checkbox" name="pres_presented"><span>I presented / shared my concept in the lab today (a practice run)</span></label>
+    <label class="check"><input type="checkbox" name="pres_draft"><span>I have a draft of my Week 6 presentation started</span></label>
+    <label class="check"><input type="checkbox" name="pres_analysis"><span>I can explain my competitor-analysis findings in my own words</span></label>
+    <label class="check"><input type="checkbox" name="pres_justify"><span>I can justify my recommended logo with evidence from the analysis</span></label>
+    <label class="fld">In one or two sentences, the key point you'll open your presentation with.</label>
+    <textarea name="pres_opening"></textarea>
+    <label class="fld">One question you expect to be asked, and how you'd answer it.</label>
+    <textarea name="pres_question"></textarea>
+  </div>
+
+  <!-- CHECK-IN -->
+  <div class="card">
+    <h2>Section F</h2>
+    <div class="ctitle">Check-in</div>
+    <div class="cdesc">A quick read on how the lab is going.</div>
+    <label class="fld">What's going well?</label><textarea name="going_well"></textarea>
+    <label class="fld">What are you stuck on?</label><textarea name="stuck_on"></textarea>
+    <label class="fld">One thing to finish before Week 6.</label><textarea name="next_step"></textarea>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="card submit-card">
+    <div class="ctitle">Submit your worksheet</div>
+    <p>Check your details and the AI acknowledgement above, then send. Once submitted, the form locks so you can't accidentally change your answers.</p>
+    <button type="button" id="submitBtn">Submit Worksheet</button>
+    <div class="err" id="err">Please complete your name, tutorial, email and the AI acknowledgement first.</div>
+    <div class="sent-note">Sent securely via Formspree to wfronema@bond.edu.au</div>
+  </div>
+
+  </form>
+</div>
+
+<script>
+const FORMSPREE_URL='https://formspree.io/f/mvkzgglo';
+const KEY='digm71_wk5';
+const form=document.getElementById('ws');
+
+// restore
+function restore(){
+  const d=JSON.parse(localStorage.getItem(KEY)||'{}');
+  if(d._submitted){lockSubmitted(d._submitted_at);return;}
+  form.querySelectorAll('[name]').forEach(el=>{
+    if(d[el.name]===undefined)return;
+    if(el.type==='checkbox')el.checked=d[el.name];
+    else if(el.type==='radio'){el.checked=(el.value===d[el.name]);}
+    else el.value=d[el.name];
+  });
+  syncRadios();progress();
+}
+function save(){
+  const d=JSON.parse(localStorage.getItem(KEY)||'{}');
+  form.querySelectorAll('[name]').forEach(el=>{
+    if(el.type==='checkbox')d[el.name]=el.checked;
+    else if(el.type==='radio'){if(el.checked)d[el.name]=el.value;}
+    else d[el.name]=el.value;
+  });
+  localStorage.setItem(KEY,JSON.stringify(d));
+  const s=document.getElementById('saved');s.classList.add('show');clearTimeout(window._st);window._st=setTimeout(()=>s.classList.remove('show'),1200);
+}
+function syncRadios(){document.querySelectorAll('.opt').forEach(o=>{const i=o.querySelector('input');o.classList.toggle('sel',i.checked);});}
+function progress(){
+  const req=[...form.querySelectorAll('[data-req]')];
+  let done=0;req.forEach(el=>{if(el.type==='checkbox'){if(el.checked)done++;}else if(el.value.trim())done++;});
+  const pct=req.length?Math.round(done/req.length*100):0;
+  document.getElementById('fill').style.width=pct+'%';document.getElementById('pct').textContent=pct+'%';
+}
+form.addEventListener('input',()=>{save();syncRadios();progress();});
+form.addEventListener('change',()=>{save();syncRadios();progress();});
+
+function lockSubmitted(t){
+  document.getElementById('success').style.display='block';
+  if(t)document.getElementById('successTime').textContent='Submitted at '+new Date(t).toLocaleString('en-AU',{timeZone:'Australia/Brisbane'})+' AEST';
+  form.querySelectorAll('input,select,textarea,button').forEach(el=>el.disabled=true);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+document.getElementById('submitBtn').addEventListener('click',async()=>{
+  const need=[...form.querySelectorAll('[data-req]')];
+  const ok=need.every(el=>el.type==='checkbox'?el.checked:el.value.trim());
+  if(!ok){document.getElementById('err').style.display='block';return;}
+  document.getElementById('err').style.display='none';
+  const btn=document.getElementById('submitBtn');btn.disabled=true;btn.textContent='Submitting…';
+  const fd=new FormData();
+  // readable summary first
+  let sum='DIGM71-100 Week 5 Worksheet\n\n';
+  form.querySelectorAll('[name]').forEach(el=>{
+    let v=el.type==='checkbox'?(el.checked?'Yes':'No'):(el.type==='radio'?(el.checked?el.value:null):el.value);
+    if(el.type==='radio'&&!el.checked)return;
+    if(v!==null&&v!=='')fd.append(el.name,v);
+  });
+  fd.append('_subject','Week 5 worksheet — '+(form.student_name.value||'student'));
+  try{
+    const res=await fetch(FORMSPREE_URL,{method:'POST',body:fd,headers:{Accept:'application/json'}});
+    if(res.ok){
+      const d=JSON.parse(localStorage.getItem(KEY)||'{}');d._submitted=true;d._submitted_at=new Date().toISOString();localStorage.setItem(KEY,JSON.stringify(d));
+      lockSubmitted(d._submitted_at);
+    }else{throw new Error('bad');}
+  }catch(e){btn.disabled=false;btn.textContent='Submit Worksheet';document.getElementById('err').textContent='Something went wrong sending your worksheet. Check your connection and try again.';document.getElementById('err').style.display='block';}
+});
+
+restore();
+</script>
+</body>
+</html>
